@@ -14,12 +14,13 @@ import (
 	"net/http"
 
 	openapi "github.com/xavicampa/xavic-test/go"
+	myapi "github.com/xavicampa/xavic-test/myapi"
 )
 
 func main() {
 	log.Printf("Server started")
 
-	PetApiService := openapi.NewPetApiService()
+	PetApiService := myapi.NewPetAPIService()
 	PetApiController := openapi.NewPetApiController(PetApiService)
 
 	StoreApiService := openapi.NewStoreApiService()
