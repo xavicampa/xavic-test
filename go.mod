@@ -1,10 +1,5 @@
-module github.com/xavicampa/xavic-test
+module myapi
 
-go 1.13
+go 1.15
 
-require (
-	github.com/gorilla/mux v1.7.3
-	github.com/xavicampa/xavic-test/myapi v0.0.0-00010101000000-000000000000
-)
-
-replace github.com/xavicampa/xavic-test/myapi => ./myapi
+require github.com/gorilla/mux v1.8.0

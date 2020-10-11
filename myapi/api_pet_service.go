@@ -14,7 +14,7 @@ import (
 	"fmt"
 	"os"
 
-	openapi "github.com/xavicampa/xavic-test/go"
+	openapi "myapi/go"
 )
 
 // PetAPIService is a service that implents the logic for the PetAPIServicer

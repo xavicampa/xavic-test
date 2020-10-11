@@ -13,8 +13,8 @@ import (
 	"log"
 	"net/http"
 
-	openapi "github.com/xavicampa/xavic-test/go"
-	myapi "github.com/xavicampa/xavic-test/myapi"
+	openapi "myapi/go"
+	myapi "myapi/myapi"
 )
 
 func main() {
