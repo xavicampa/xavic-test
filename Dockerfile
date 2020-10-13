@@ -12,6 +12,7 @@ FROM golang:1.15 AS build
 RUN mkdir /go/src/myapi
 WORKDIR /go/src/myapi
 COPY --from=openapi /go go
+COPY --from=openapi /api api
 COPY Makefile .
 COPY myapi ./myapi
 COPY main.go .
