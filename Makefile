@@ -16,7 +16,7 @@ clean:
 	rm -rf api
 	rm -rf go
 	rm -rf bin
-	rm *.jar
+	rm -f *.jar
 
 run: go
 	./bin/main
