@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: xavictest-deployment
+spec:
+    selector:
+        matchLabels:
+            app: xavic-test
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: xavic-test
+        spec:
+            containers:
+            -   name: xavic-test-container
+                image: gcr.io/my-project-1526573572937/github.com/xavicampa/xavic-test:b493c88d6a500bc2320d6749ce7a1a785af52c1d
+                ports:
+                - containerPort: 8080
