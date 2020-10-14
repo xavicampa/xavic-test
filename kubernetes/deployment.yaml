@@ -14,6 +14,6 @@ spec:
         spec:
             containers:
             -   name: xavic-test-container
-                image: gcr.io/my-project-1526573572937/github.com/xavicampa/xavic-test:b493c88d6a500bc2320d6749ce7a1a785af52c1d
+                image: gcr.io/my-project-1526573572937/github.com/xavicampa/xavic-test@sha256:b78056e720e2606386e675c62e0e7f8003f9a83237c0ab5bb31fbefe819e4d48
                 ports:
                 - containerPort: 8080

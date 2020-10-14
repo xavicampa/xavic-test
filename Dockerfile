@@ -17,6 +17,7 @@ COPY Makefile .
 COPY myapi ./myapi
 COPY main.go .
 COPY go.mod .
+ENV CGO_ENABLED=0
 RUN make build
 
 FROM scratch AS runtime
