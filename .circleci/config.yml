@@ -22,10 +22,11 @@ jobs:
       - checkout
 
       # specify any bash command here prefixed with `run: `
-      - run: curl https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/4.3.1/openapi-generator-cli-4.3.1.jar --output openapi-generator.jar
-      - run: java -jar openapi-generator.jar generate -g go-server -i myapi.yaml
-      - run: go get -v -d ./...
+      #- run: curl https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/4.3.1/openapi-generator-cli-4.3.1.jar --output openapi-generator.jar
+      #- run: java -jar openapi-generator.jar generate -g go-server -i myapi.yaml
+      #- run: go get -v -d ./...
       #- run: go test -v ./...
-      - run: CGO_ENABLED=0; go build -a -installsuffix cgo -o bin/main main.go
+      #- run: CGO_ENABLED=0; go build -a -installsuffix cgo -o bin/main main.go
+      - run: make
       - store_artifacts:
           path: bin/main
