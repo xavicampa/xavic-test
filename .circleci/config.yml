@@ -9,6 +9,7 @@ jobs:
     docker:
       - image: cimg/base:2020.01
     steps:
+      - checkout
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/push:
