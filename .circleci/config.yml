@@ -5,20 +5,25 @@ orbs:
   discord: antonioned/discord@0.1.0
 
 jobs:
-  notification:
+  build:
+    docker:
+      - image: circleci/golang:1.15-browsers
+    working_directory: /go/src/github.com/xavicampa/xavic-test
     steps:
-      - discord/status:
-          fail_only: true
-          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-          webhook: "${DISCORD_STATUS_WEBHOOK}"
-
-workflows:
-  build-and-publish-docker-image:
-    jobs:
+      - checkout
       - docker/publish:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           update-description: true
-      - notification
+      - discord/status:
+          fail_only: false
+          success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successfull: **${CIRCLE_BUILD_URL}**."
+          failure_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build failed: **${CIRCLE_BUILD_URL}**."
+          webhook: "${DISCORD_STATUS_WEBHOOK}"
+
+workflows:
+  xavic-test:
+    jobs:
+      - build
     
 
 # jobs:
