@@ -19,6 +19,6 @@ jobs:
       - discord/status
 
 workflows:
-  build-docker-image-and-notify:
+  build-and-publish-docker-image:
     jobs:
       - build-and-publish-docker-image
