@@ -18,7 +18,7 @@ jobs:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - discord/status:
           fail_only: false
-          success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successfull: **${CIRCLE_BUILD_URL}**."
+          success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successful: **${CIRCLE_BUILD_URL}**."
           failure_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build failed: **${CIRCLE_BUILD_URL}**."
           webhook: "${DISCORD_WEBHOOK}"
 
