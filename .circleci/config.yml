@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: docker/docker
+      - image: cimg/base
     steps:
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
