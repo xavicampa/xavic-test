@@ -9,7 +9,7 @@ build: api/openapi.yaml
 	go build -a -installsuffix cgo -o bin/main main.go
 
 docker:
-	docker build -t myapi . --no-cache
+	docker build -t xavicampa/xavic-test . --no-cache
 
 clean:
 	rm -rf .openapi-generator
