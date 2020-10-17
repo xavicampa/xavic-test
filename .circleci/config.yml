@@ -8,10 +8,11 @@ jobs:
   build:
     executor: docker/docker
     steps:
-      - setup_remote_docker
+      #- setup_remote_docker
       - checkout
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      - docker/configure-docker-credentials-store:
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
@@ -20,7 +21,7 @@ jobs:
           fail_only: false
           success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successfull: **${CIRCLE_BUILD_URL}**."
           failure_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build failed: **${CIRCLE_BUILD_URL}**."
-          webhook: "${DISCORD_STATUS_WEBHOOK}"
+          webhook: "${DISCORD_WEBHOOK}"
 
 workflows:
   build-docker-image-and-notify:
