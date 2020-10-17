@@ -11,6 +11,7 @@ jobs:
     working_directory: /go/src/github.com/xavicampa/xavic-test
     steps:
       - checkout
+      - run: make
       - run: make test
       - docker/check
       - docker/build:
