@@ -32,10 +32,10 @@ jobs:
 workflows:
   build:-and-publish-docker-image:
     jobs:
-      - build-and-test     
+      - build-and-test
       - publish-docker-image:
           requires:
-            - build
+            - build-and-test
       - notify:
           requires:
             - publish-docker-image
