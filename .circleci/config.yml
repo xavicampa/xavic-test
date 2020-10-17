@@ -5,8 +5,14 @@ orbs:
   discord: antonioned/discord@0.1.0
 
 jobs:
-  build-and-publish-docker-image:
-    executor: docker/machine
+  build:
+    docker:
+      - image: circleci/golang:1.15-browsers
+    working_directory: /go/src/github.com/xavicampa/xavic-test
+    steps:
+      - run: make
+  publish-docker-image:
+    machine: true
     steps:
       - checkout
       - docker/check
@@ -17,8 +23,18 @@ jobs:
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - discord/status
+  notify:
+    machine: true
+    steps:
+      - discord/status
 
 workflows:
-  build-and-publish-docker-image:
+  build:-and-publish-docker-image:
     jobs:
-      - build-and-publish-docker-image
+      - build        
+      - publish-docker-image:
+          requires:
+            - build
+      - notify:
+          requires:
+            - publish-docker-image
