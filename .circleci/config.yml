@@ -11,7 +11,8 @@ jobs:
       - checkout
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      #- docker/configure-docker-credentials-store:
+      - docker/check:
+          use-docker-credentials-store: false
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
