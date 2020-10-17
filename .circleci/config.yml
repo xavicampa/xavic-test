@@ -6,9 +6,9 @@ orbs:
 
 jobs:
   build:
-    docker:
-      - image: cimg/base:2020.01
+    executor: docker/docker
     steps:
+      - setup_remote_docker
       - checkout
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
