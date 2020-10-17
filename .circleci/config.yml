@@ -9,9 +9,12 @@ jobs:
     docker:
       - image: docker/docker
     steps:
-      - docker/publish:
+      - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          update-description: true
+      - docker/push:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      - docker/update-description:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - discord/status:
           fail_only: false
           success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successfull: **${CIRCLE_BUILD_URL}**."
