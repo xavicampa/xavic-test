@@ -6,7 +6,7 @@ orbs:
 
 jobs:
   notify:
-    executor: alpine
+    executor: machine
     steps:
       - discord/status:
           fail_only: false
