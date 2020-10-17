@@ -19,8 +19,11 @@ jobs:
           success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successfull: **${CIRCLE_BUILD_URL}**."
           failure_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build failed: **${CIRCLE_BUILD_URL}**."
           webhook: "${DISCORD_STATUS_WEBHOOK}"
-#workflows:
-#  build-docker-image-only:
+
+workflows:
+  xavic-test:
+    jobs:
+      - build
     
 
 # jobs:
