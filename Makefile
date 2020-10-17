@@ -12,7 +12,7 @@ docker:
 	docker build -t xavicampa/xavic-test . --no-cache
 
 test: go
-	go test
+	@go test --json
 
 clean:
 	rm -rf .openapi-generator

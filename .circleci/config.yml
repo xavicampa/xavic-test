@@ -12,7 +12,8 @@ jobs:
     steps:
       - checkout
       - run: make
-      - run: make test
+      - run: mkdir test-results
+      - run: make test >> test-results/results.json      
       - setup_remote_docker
       - docker/check
       - docker/build:
@@ -21,7 +22,10 @@ jobs:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      - store_test_results:
+          path: test-results
       - discord/status
+
 
 workflows:
   build:-and-publish-docker-image:
