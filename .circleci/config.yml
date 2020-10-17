@@ -5,10 +5,13 @@ orbs:
   discord: antonioned/discord@0.1.0
 
 jobs:
-  notify:
+  build:
     docker:
-      - image: alpine
+      - image: docker/docker
     steps:
+      - docker/publish:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          update-description: true
       - discord/status:
           fail_only: false
           success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** build successfull: **${CIRCLE_BUILD_URL}**."
@@ -16,12 +19,9 @@ jobs:
           webhook: "${DISCORD_STATUS_WEBHOOK}"
 
 workflows:
-  build-and-publish-docker-image:
+  build-docker-image-and-notify:
     jobs:
-      - docker/publish:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          update-description: true
-      - notify
+      - build
       
     
 
