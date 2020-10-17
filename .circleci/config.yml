@@ -5,7 +5,10 @@ orbs:
   discord: antonioned/discord@0.1.0
 
 jobs:
-  build-docker-image-only:
+  build:
+    docker:
+      - image: circleci/golang:1.15-browsers
+    working_directory: /go/src/github.com/xavicampa/xavic-test
     steps:
       - checkout
       - docker/publish:
