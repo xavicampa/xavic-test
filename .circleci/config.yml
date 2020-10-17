@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run: make
       - run: make test
-      - setup-remote-docker
+      - setup_remote_docker
       - docker/check
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
