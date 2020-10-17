@@ -5,28 +5,23 @@ orbs:
   discord: antonioned/discord@0.1.0
 
 jobs:
-  build:
+  build-and-notify:
     executor: docker/machine
     steps:
       - checkout
+      - docker/check
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      - docker/check:
-          use-docker-credentials-store: false
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      - discord/status:
-          fail_only: false
-          #success_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** successful."
-          #failure_message: "**${CIRCLE_USERNAME}**'s **${CIRCLE_JOB}** failed."
-          webhook: "${DISCORD_WEBHOOK}"
+      - discord/status
 
 workflows:
   build-docker-image-and-notify:
     jobs:
-      - build
+      - build-and-notify
       
     
 
