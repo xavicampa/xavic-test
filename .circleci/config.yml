@@ -12,7 +12,6 @@ jobs:
     steps:
       - checkout
       - run: make test
-      - run: make
   publish-docker-image:
     machine: true
     steps:

@@ -1,9 +1,9 @@
-all: clean openapi build test
+all: clean openapi build
 openapi:
 	curl https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/4.3.1/openapi-generator-cli-4.3.1.jar --output openapi-generator.jar
 	java -jar openapi-generator.jar generate -g go-server -i myapi.yaml
 
-build: api/openapi.yaml
+build: openapi
 	CGO_ENABLED=0
 	go get -d -v ./...
 	go build -a -installsuffix cgo -o bin/main main.go
@@ -11,7 +11,7 @@ build: api/openapi.yaml
 docker:
 	docker build -t xavicampa/xavic-test . --no-cache
 
-test:
+test: build
 	go test
 
 clean:
@@ -21,5 +21,5 @@ clean:
 	rm -rf bin
 	rm -f *.jar
 
-run: go
+run: build
 	./bin/main
