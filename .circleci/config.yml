@@ -33,9 +33,7 @@ jobs:
     steps:
       - rnikkei-kustomize/install
       - run: git clone https://github.com/xavicampa/xavic-test-manifests.git
-      - run: cd xavic-test-manifests
-      #- run: snap install kustomize
-      - run: kustomize build
+      - run: cd xavic-test-manifests && kustomize build
       # - gitops/clone-repository:
       #     repo: xavicampa/xavic-test-manifests
       # - gitops/update-image:
