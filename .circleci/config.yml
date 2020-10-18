@@ -32,7 +32,7 @@ jobs:
     executor: docker/docker    
     steps:      
       - rnikkei-kustomize/install
-      - run: git clone git@github.com/xavicampa/xavic-test-manifests.git
+      - run: git clone git@github.com:xavicampa/xavic-test-manifests
       - run: cd xavic-test-manifests && kustomize build
       - run: cd xavic-test-manifests && kustomize edit set image xavic-test=xavicampa/xavic-test:$CIRCLE_SHA1
       - add_ssh_keys:
