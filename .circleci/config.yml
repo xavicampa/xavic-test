@@ -37,21 +37,14 @@ jobs:
       - run: cd xavic-test-manifests && kustomize edit set image xavic-test=xavicampa/xavic-test:$CIRCLE_SHA1
       - add_ssh_keys:
           fingerprints:
-            - "76:93:99:d2:e9:e9:b0:97:63:d4:54:21:7b:cc:6c:5a"
+            - "0d:6c:c1:51:74:d3:1d:7b:42:3e:b3:d8:a0:97:3c:49"
       - run: git config --global user.email CircleCI@xavic-test && git config --global user.name CircleCI@xavic-test
-      - run: cd xavic-test-manifests && git add . && git commit -m "Updating image to tag **${CIRCLE_SHA1}**" && git push
-      # - gitops/clone-repository:
-      #     repo: xavicampa/xavic-test-manifests
-      # - gitops/update-image:
-      #     current-image-name: xavic-test
-      #     new-image-name: xavic-test
-      #     new-image-tag: $CIRCLE_SHA1
-      #     path: kubernetes
+      - run: cd xavic-test-manifests && git add . && git commit -m "Updating image to tag ${CIRCLE_SHA1}" && git push
 
 workflows:
   build:-and-publish-docker-image:
     jobs:
-      # - build-test-and-publish-docker-image
-      - update_manifests
-          # requires:
-            # - build-test-and-publish-docker-image
+      - build-test-and-publish-docker-image
+      - update_manifests:
+          requires:
+            - build-test-and-publish-docker-image
