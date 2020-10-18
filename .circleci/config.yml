@@ -4,6 +4,7 @@ orbs:
   docker: circleci/docker@1.5.0
   discord: antonioned/discord@0.1.0
   gitops: shibataka000/gitops@0.0.1
+  rnikkei-kustomize: nikkei/rnikkei-kustomize@0.0.2
 
 jobs:
   build-test-and-publish-docker-image:
@@ -28,11 +29,13 @@ jobs:
       - discord/status
   
   update_manifests:
-    docker:
-      - image: ubuntu
+    executor: docker/docker
+    working_directory: /go/src/github.com/xavicampa/xavic-test-manifests
     steps:
-      - run: snap install kustomize
-      # - run: kustomize build
+      - nikkei/install
+      - checkout 
+      #- run: snap install kustomize
+      - run: kustomize build
       # - gitops/clone-repository:
       #     repo: xavicampa/xavic-test-manifests
       # - gitops/update-image:
