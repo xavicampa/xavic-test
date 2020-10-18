@@ -32,7 +32,7 @@ jobs:
     executor: docker/docker
     working_directory: /go/src/github.com/xavicampa/xavic-test-manifests
     steps:
-      - nikkei/install
+      - rnikkei-kustomize/install
       - checkout 
       #- run: snap install kustomize
       - run: kustomize build
