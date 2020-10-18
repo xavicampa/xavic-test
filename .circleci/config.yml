@@ -31,7 +31,7 @@ jobs:
     docker:
       - image: ubuntu:20.04
     steps:
-      - run: sudo apt update && sudo apt install snapd && sudo snap install kustomize
+      - run: apt update && apt install snapd && snap install kustomize
       # - run: kustomize build
       # - gitops/clone-repository:
       #     repo: xavicampa/xavic-test-manifests
