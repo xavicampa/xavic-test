@@ -16,8 +16,7 @@ import (
 func TestGetPetById(t *testing.T) {
 	myapi := NewPetAPIService()
 	ans, _ := myapi.GetPetById(1)
-	//ans := "haha"
 	if ans != "hello 1. This is new!" {
-		t.Errorf("GetPetById('test') = '%s'; want 'Hello 1. This is new!'", ans)
+		t.Errorf("GetPetById('test') = '%s'; want 'hello 1. This is new!'", ans)
 	}
 }
