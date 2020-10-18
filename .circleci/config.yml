@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run: make
       - run: mkdir test-results
-      - run: gotestsum --junitfile test-results/unit-tests.xml     
+      - run: gotestsum --junitfile test-results/unit-tests.xml ./...
       - store_test_results:
           path: test-results 
       - setup_remote_docker
