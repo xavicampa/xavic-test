@@ -30,11 +30,15 @@ jobs:
   
   update_manifests:
     executor: docker/docker    
-    steps:
+    steps:      
       - rnikkei-kustomize/install
-      - run: git clone https://github.com/xavicampa/xavic-test-manifests.git
+      - run: git clone git@github.com/xavicampa/xavic-test-manifests.git
       - run: cd xavic-test-manifests && kustomize build
       - run: cd xavic-test-manifests && kustomize edit set image xavic-test=xavicampa/xavic-test:$CIRCLE_SHA1
+      - add_ssh_keys:
+          fingerprints:
+            - "76:93:99:d2:e9:e9:b0:97:63:d4:54:21:7b:cc:6c:5a"
+      - run: git config --global user.email CircleCI@xavic-test && git config --global user.name CircleCI@xavic-test
       - run: cd xavic-test-manifests && git add . && git commit -m "Updating image to tag **${CIRCLE_SHA1}**" && git push
       # - gitops/clone-repository:
       #     repo: xavicampa/xavic-test-manifests
