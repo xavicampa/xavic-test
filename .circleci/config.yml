@@ -14,7 +14,9 @@ jobs:
       - checkout
       - run: make
       - run: mkdir test-results
-      - run: gotestsum --junitfile test-results/unit-tests.xml      
+      - run: gotestsum --junitfile test-results/unit-tests.xml     
+      - store_test_results:
+          path: test-results 
       - setup_remote_docker
       - docker/check
       - docker/build:
@@ -22,28 +24,27 @@ jobs:
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      
-      - store_test_results:
-          path: test-results
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME      
       - discord/status
+  
   update_manifests:
     docker:
       - image: ubuntu:20.04
     steps:
-      - gitops/clone-repository:
-          repo: xavicampa/xavic-test-manifests
-      - gitops/update-image:
-          current-image-name: xavic-test
-          new-image-name: xavic-test
-          new-image-tag: $CIRCLE_SHA1
-          path: kubernetes
-
+      - run: sudo apt update && sudo apt install snapd && sudo snap install kustomize
+      # - run: kustomize build
+      # - gitops/clone-repository:
+      #     repo: xavicampa/xavic-test-manifests
+      # - gitops/update-image:
+      #     current-image-name: xavic-test
+      #     new-image-name: xavic-test
+      #     new-image-tag: $CIRCLE_SHA1
+      #     path: kubernetes
 
 workflows:
   build:-and-publish-docker-image:
     jobs:
-      - build-test-and-publish-docker-image
-      - update_manifests:
-          requires:
-            - build-test-and-publish-docker-image
+      # - build-test-and-publish-docker-image
+      - update_manifests
+          # requires:
+            # - build-test-and-publish-docker-image
