@@ -60,7 +60,7 @@ func (s *PetAPIService) FindPetsByTags(tags []string) (interface{}, error) {
 func (s *PetAPIService) GetPetById(petId int64) (interface{}, error) {
 	// TODO - update GetPetById with the required logic for this service method.
 	// Add api_pet_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return "hello " + fmt.Sprint(petId), nil
+	return "hello " + fmt.Sprint(petId) + ". This is new!", nil
 }
 
 // UpdatePet - Update an existing pet
