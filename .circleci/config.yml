@@ -29,7 +29,7 @@ jobs:
   
   update_manifests:
     docker:
-      - image: ubuntu:20.04
+      - image: ubuntu
     steps:
       - run: apt update && apt install snapd -y && snap install kustomize
       # - run: kustomize build
