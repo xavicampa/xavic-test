@@ -34,6 +34,8 @@ jobs:
       - rnikkei-kustomize/install
       - run: git clone https://github.com/xavicampa/xavic-test-manifests.git
       - run: cd xavic-test-manifests && kustomize build
+      - run: cd xavic-test-manifests && kustomize edit set image xavic-test=xavicampa/xavic-test:$CIRCLE_SHA1
+      - run: cd xavic-test-manifests && git add . && git commit -m "Updating image to tag **${CIRCLE_SHA1}**" && git push
       # - gitops/clone-repository:
       #     repo: xavicampa/xavic-test-manifests
       # - gitops/update-image:
