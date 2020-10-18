@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   docker: circleci/docker@1.5.0
   discord: antonioned/discord@0.1.0
+  gitops: shibataka000/gitops@0.0.1
 
 jobs:
   build-test-and-publish-docker-image:
@@ -22,6 +23,11 @@ jobs:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      - gitops/update-image:
+          current-image-name: xavic-test
+          new-image-name: xavic-test
+          new-image-tag: $CIRCLE_SHA1
+          path: kubernetes
       - store_test_results:
           path: test-results
       - discord/status
