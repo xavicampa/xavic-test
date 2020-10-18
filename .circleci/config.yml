@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: make
       - run: mkdir test-results
-      - run: make test >> test-results/results.json      
+      - run: gotestsum --junitfile test-results/unit-tests.xml      
       - setup_remote_docker
       - docker/check
       - docker/build:
@@ -23,11 +23,11 @@ jobs:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      - gitops/update-image:
-          current-image-name: xavic-test
-          new-image-name: xavic-test
-          new-image-tag: $CIRCLE_SHA1
-          path: kubernetes
+      # - gitops/update-image:
+      #     current-image-name: xavic-test
+      #     new-image-name: xavic-test
+      #     new-image-tag: $CIRCLE_SHA1
+      #     path: kubernetes
       - store_test_results:
           path: test-results
       - discord/status
