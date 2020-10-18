@@ -23,17 +23,27 @@ jobs:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      # - gitops/update-image:
-      #     current-image-name: xavic-test
-      #     new-image-name: xavic-test
-      #     new-image-tag: $CIRCLE_SHA1
-      #     path: kubernetes
+      
       - store_test_results:
           path: test-results
       - discord/status
+  update_manifests:
+    docker:
+      - image: ubuntu:20.04
+    steps:
+      - gitops/clone-repository:
+          repo: xavicampa/xavic-test-manifests
+      - gitops/update-image:
+          current-image-name: xavic-test
+          new-image-name: xavic-test
+          new-image-tag: $CIRCLE_SHA1
+          path: kubernetes
 
 
 workflows:
   build:-and-publish-docker-image:
     jobs:
       - build-test-and-publish-docker-image
+      - update_manifests:
+          requires:
+            - build-test-and-publish-docker-image
