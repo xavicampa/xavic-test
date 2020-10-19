@@ -40,6 +40,7 @@ jobs:
           fingerprints:
             - "0d:6c:c1:51:74:d3:1d:7b:42:3e:b3:d8:a0:97:3c:49"
       - run: cd xavic-test-manifests && git add . && git commit -m "Updating image to tag ${CIRCLE_SHA1}" && git push
+      - discord/status
 
 workflows:
   build:-and-publish-docker-image:
