@@ -24,10 +24,10 @@ jobs:
       - docker/check
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          tag: [$CIRCLE_SHA1,$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM]
+          tag: $CIRCLE_SHA1,$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          tag: [$CIRCLE_SHA1,$CIRCLE_BRANCH]
+          tag: $CIRCLE_SHA1,$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
       - docker/update-description:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - discord/status
