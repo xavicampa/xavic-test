@@ -39,7 +39,7 @@ jobs:
       - run: git clone git@github.com:xavicampa/xavic-test-manifests
       - rnikkei-kustomize/install      
       #- run: cd xavic-test-manifests/dev && kustomize edit set image xavicampa/xavic-test=xavicampa/xavic-test:$CIRCLE_SHA1
-      - run: mkdir xavic-test-manifests/$CIRCLE_BRANCH && cd xavic-test-manifests/$CIRCLE_BRANCH && kustomize create --resources ../base
+      - run: rm -rf xavic-test-manifests/$CIRCLE_BRANCH && mkdir xavic-test-manifests/$CIRCLE_BRANCH && cd xavic-test-manifests/$CIRCLE_BRANCH && kustomize create --resources ../base
       - run: cd xavic-test-manifests/$CIRCLE_BRANCH && kustomize edit set image xavicampa/xavic-test=xavicampa/xavic-test:$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
       - run: git config --global user.email javi+circleci@campalus.com && git config --global user.name xavicampa+circleci
       - add_ssh_keys:
