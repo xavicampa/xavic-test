@@ -3,3 +3,4 @@ go
 api
 *.jar
 .openapi-generator
+launch.json

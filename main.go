@@ -11,25 +11,22 @@ package main
 
 import (
 	"log"
-	"net/http"
-
 	openapi "myapi/go"
-	myapi "myapi/myapi"
+	"myapi/myapi"
+	"net/http"
 )
 
 func main() {
 	log.Printf("Server started")
 
-	PetApiService := myapi.NewPetAPIService()
-	PetApiController := openapi.NewPetApiController(PetApiService)
+	memoryStore := new(myapi.MemoryItemStore)
+	memoryStore.CreateItem("this is a test")
+	memoryStore.CreateItem("and this is another test")
 
-	StoreApiService := openapi.NewStoreApiService()
-	StoreApiController := openapi.NewStoreApiController(StoreApiService)
+	ItemAPIService := myapi.NewItemAPIService(memoryStore)
+	ItemAPIController := openapi.NewDefaultApiController(ItemAPIService)
 
-	UserApiService := openapi.NewUserApiService()
-	UserApiController := openapi.NewUserApiController(UserApiService)
-
-	router := openapi.NewRouter(PetApiController, StoreApiController, UserApiController)
+	router := openapi.NewRouter(ItemAPIController)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
