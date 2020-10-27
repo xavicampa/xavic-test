@@ -16,6 +16,8 @@ jobs:
       - run: make
       - store_artifacts:
             path: bin
+      - store_artifacts:
+            path: api
       - run: mkdir test-results
       - run: gotestsum --junitfile test-results/unit-tests.xml ./...
       - store_test_results:
