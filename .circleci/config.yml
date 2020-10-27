@@ -5,6 +5,7 @@ orbs:
   discord: antonioned/discord@0.1.0
   gitops: shibataka000/gitops@0.0.1
   rnikkei-kustomize: nikkei/rnikkei-kustomize@0.0.2
+  codecov: codecov/codecov@1.0.2
 
 jobs:
   build-test-and-publish-docker-image:
@@ -18,10 +19,15 @@ jobs:
             path: bin
       - store_artifacts:
             path: api
+
       - run: mkdir test-results
-      - run: gotestsum --junitfile test-results/unit-tests.xml ./...
+      - run: gotestsum --junitfile test-results/unit-tests.xml ./...      
+      - run: go test -race -coverprofile=test-results/coverage.txt -covermode=atomic ./...
+      - codecov/upload:
+          file: test-results/coverage.txt
       - store_test_results:
           path: test-results
+
       - setup_remote_docker
       - docker/check
       - docker/build:
