@@ -11,7 +11,7 @@ jobs:
   build-test-and-publish-docker-image:
     docker:
       - image: circleci/golang:1.15-browsers
-    working_directory: /go/src/github.com/xavicampa/xavic-test
+    working_directory: /go/src/github.com/xavicampa/pegarata-api
     steps:
       - checkout
       - run: make
@@ -44,16 +44,16 @@ jobs:
     executor: docker/docker    
     steps:      
       - run: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-      - run: git clone git@github.com:xavicampa/xavic-test-manifests
+      - run: git clone git@github.com:xavicampa/pegarata-manifests
       - rnikkei-kustomize/install      
-      #- run: cd xavic-test-manifests/dev && kustomize edit set image xavicampa/xavic-test=xavicampa/xavic-test:$CIRCLE_SHA1
-      - run: rm -rf xavic-test-manifests/$CIRCLE_BRANCH && mkdir xavic-test-manifests/$CIRCLE_BRANCH && cd xavic-test-manifests/$CIRCLE_BRANCH && kustomize create --resources ../base
-      - run: cd xavic-test-manifests/$CIRCLE_BRANCH && kustomize edit set image xavicampa/xavic-test=xavicampa/xavic-test:$CIRCLE_BRANCH-<< pipeline.number >>
+      #- run: cd pegarata-manifests/dev && kustomize edit set image xavicampa/pegarata-api=xavicampa/pegarata-api:$CIRCLE_SHA1
+      - run: rm -rf pegarata-manifests/$CIRCLE_BRANCH && mkdir pegarata-manifests/$CIRCLE_BRANCH && cd pegarata-manifests/$CIRCLE_BRANCH && kustomize create --resources ../base
+      - run: cd pegarata-manifests/$CIRCLE_BRANCH && kustomize edit set image xavicampa/pegarata-api=xavicampa/pegarata-api:$CIRCLE_BRANCH-<< pipeline.number >>
       - run: git config --global user.email javi+circleci@campalus.com && git config --global user.name xavicampa+circleci
       - add_ssh_keys:
           fingerprints:
             - "0d:6c:c1:51:74:d3:1d:7b:42:3e:b3:d8:a0:97:3c:49"
-      - run: cd xavic-test-manifests && git add . && git commit -m "Updating image to tag ${CIRCLE_SHA1}" && git push
+      - run: cd pegarata-manifests && git add . && git commit -m "Updating image to tag ${CIRCLE_SHA1}" && git push
       - discord/status
 
 workflows:
