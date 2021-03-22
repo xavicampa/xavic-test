@@ -20,6 +20,8 @@ clean:
 	rm -rf go
 	rm -rf bin
 	rm -f *.jar
+mock:
+	prism mock -p 8080 myapi.yaml
 
 run: build
 	./bin/main
