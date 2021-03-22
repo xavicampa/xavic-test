@@ -3,11 +3,13 @@ info:
   title: Pegarata API
   description: Pegarata API allows you to interact with your shopping list
   version: 0.1.0
+servers:
+  - url: http://127.0.0.1:8080
 paths:
   /items:
     get:
       summary: Returns a list of items
-      description: None
+      description: Returns a list of items
       responses:
         '200':    # status code
           description: A JSON array of items
@@ -20,11 +22,11 @@ paths:
                 $ref: '#/components/schemas/ArrayOfPersistedItems'
     post:
       summary: Creates an extra item
-      description: None      
+      description: Creates an extra item      
       requestBody:
         required: true
         content:
-          text/plain:
+          application/json:
             schema:
               $ref: '#/components/schemas/Item'
       responses:
@@ -40,13 +42,14 @@ paths:
   /items/{itemId}:
     delete:
       summary: Removes an item from the list
-      description: None      
+      description: Removes an item from the list      
       parameters:
         - name: itemId
           in: path
           description: None
           required: true
           schema:
+            #type: integer
             type: string
             format: uuid
       responses:
@@ -63,15 +66,9 @@ paths:
         '200':
           description: A status message repesenting the health of the API
           content:
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/HeartBeatResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/HeartBeatResponse'
-            text/plain:
-              schema:
-                type: string
 components:
   schemas:
     Item:
